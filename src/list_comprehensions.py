@@ -16,7 +16,7 @@ def main():
     celcius = [10, 20, 50, 190]
 
     fahrenheit = [temp * (9 / 5.0) + 32 for temp in celcius]
-    print(fahrenheit)
+    print(fahrenheit.sort())
     # Nested list comprehension
     list = [x ** 2 for x in [x ** 2 for x in range(0, 11)]]
     print(list)

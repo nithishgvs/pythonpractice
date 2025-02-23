@@ -1,3 +1,6 @@
+import math
+
+
 def strings():
     print('Hello')
     print("Hello Sai \nHappy day")
@@ -21,6 +24,7 @@ def strings():
     print(s[::-1])
 
 
+
 def strings2():
     s = "Welcome to Python"
     s += " concatenate me "
@@ -31,6 +35,7 @@ def strings2():
     print(s.upper())
     print(s.lower())
     print(s.split('e'))
+    print(math.sqrt(3))
 
 
 # Its important to note that strings have an important property known as immutability. This means that once a string is created, the elements within it can not be changed or replaced
@@ -38,3 +43,4 @@ def strings2():
 
 if __name__ == "__main__":
     strings2();
+    print(math.sqrt(4))
