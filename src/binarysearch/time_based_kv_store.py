@@ -11,15 +11,17 @@ class TimeMap:
     def get(self, key: str, timestamp: int) -> str:
         if key not in self.dict:
             return ""
-        best_match = ""
 
-        values = self.dict[key]
-        l, h = 0, len(values) - 1
+        value_tuples = self.dict[key]
+
+        l, h = 0, len(value_tuples) - 1
+
+        best_match = ""
 
         while l <= h:
             mid = l + (h - l) // 2
-            if values[mid][0] <= timestamp:
-                best_match = values[mid][1]
+            if value_tuples[mid][0] <= timestamp:
+                best_match = value_tuples[mid][1]
                 l = mid + 1
             else:
                 h = mid - 1
