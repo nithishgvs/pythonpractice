@@ -1,25 +1,14 @@
 # File: top_k_frequent_elements.py
 import heapq
+from collections import Counter
 from typing import List
 
 
 class TopKFrequentElements:
 
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        freq_map = {}
-
-        for num in nums:
-            freq_map[num] = freq_map.get(num, 0) + 1
-
-        max_heap = [(-value, key) for key, value in freq_map.items()]
-
-        heapq.heapify(max_heap)
-        result = []
-
-        for _ in range(k):
-            result.append(heapq.heappop(max_heap)[1])
-
-        return result
+        counter = Counter(nums)
+        return [item for item, _ in heapq.nlargest(k, counter.items(), key=lambda x: x[1])]
 
 
 def test_topk():
