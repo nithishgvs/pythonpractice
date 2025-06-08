@@ -5,13 +5,15 @@ from typing import List
 
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        min_heap = []
 
-        for (x, y) in points:
-            distance = math.sqrt(math.pow(x, 2) + math.pow(y, 2))
-            heapq.heappush(min_heap, (distance, x, y))
+        min_heap=[]
 
-        return [[x, y] for _, x, y in heapq.nsmallest(k, min_heap)]
+
+        for point in points:
+            distance=math.sqrt(math.pow(point[0],2)+math.pow(point[1],2))
+            heapq.heappush(min_heap,(distance,point[0],point[1]))
+
+        return  [[x, y] for distance, x, y in heapq.nsmallest(k, min_heap)]
 
 
 def test_kclosest():

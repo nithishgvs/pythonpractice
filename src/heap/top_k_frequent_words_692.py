@@ -12,4 +12,4 @@ class Solution:
 
 def test_topk():
     solution = Solution()
-    print(solution.topKFrequent(["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], 4))
+    print(solution.topKFrequent(["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], 2))

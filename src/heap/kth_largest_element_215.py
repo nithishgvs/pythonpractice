@@ -6,8 +6,8 @@ class KthLargestElement:
     def find_kth_largest(self, nums: List[int], k: int) -> int:
         min_heap = []
 
-        for n in nums:
-            heapq.heappush(min_heap, n)
+        for num in nums:
+            heapq.heappush(min_heap, num)
 
             if (len(min_heap) > k):
                 heapq.heappop(min_heap)
