@@ -1,16 +1,13 @@
 class Solution:
     def isValid(self, s: str) -> bool:
         stack = []
-        dict = {']': '[', ')': '(', '}': '{'}
+        pattern_map = {']': '[', ')': '(', '}': '{'}
         for char in s:
-            if stack:
-                if dict.get(char, '') == stack[0]:
-                    stack.pop(0)
-                else:
-                    stack.insert(0, char)
+            if (stack and char in pattern_map and pattern_map[char] == stack[-1]):
+                stack.pop()
             else:
-                stack.insert(0, char)
-        return len(stack) == 0
+                stack.append(char)
+        return not stack
 
 
 def test_valid_paren():
