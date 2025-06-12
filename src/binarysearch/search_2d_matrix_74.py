@@ -20,6 +20,7 @@ class Solution:
         if not (top <= bot):
             return False
 
+        #Row has to be finalized
         row = (top + bot) // 2
 
         l, r = 0, cols - 1
