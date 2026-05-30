@@ -4,42 +4,24 @@ from typing import List
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         rows, cols = len(matrix), len(matrix[0])
+        l, r = 0, rows * cols - 1
 
-        top, bot = 0, rows - 1
-
-        while top <= bot:
-            mid = (top + bot) // 2
-
-            if matrix[mid][-1] < target:
-                top = mid + 1
-            elif matrix[mid][0] > target:
-                bot = mid - 1
-            else:
-                break
-
-        if not (top <= bot):
-            return False
-
-        #Row has to be finalized
-        row = (top + bot) // 2
-
-        l, r = 0, cols - 1
-
+        # Treat the matrix as a flat sorted array; map 1D index -> 2D with mid//cols, mid%cols
         while l <= r:
-
             mid = (l + r) // 2
+            val = matrix[mid // cols][mid % cols]
 
-            if matrix[row][mid] > target:
-                r = mid - 1
-            elif matrix[row][mid] < target:
+            if val == target:
+                return True
+            elif val < target:
                 l = mid + 1
             else:
-                return True
+                r = mid - 1
 
         return False
 
 
 def test_search():
-    object = Solution()
-    matrix =[[1,3]]
-    print(object.searchMatrix(matrix, 3))
+    sol = Solution()
+    matrix = [[1, 3]]
+    print(sol.searchMatrix(matrix, 3))
