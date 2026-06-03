@@ -4,8 +4,9 @@ from typing import List
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         n = len(temperatures)
-        stack = []
         result = [0] * n
+
+        stack = []
 
         for index in range(n - 1, -1, -1):
             while stack and temperatures[stack[-1]] <= temperatures[index]:
@@ -14,6 +15,7 @@ class Solution:
             if stack:
                 result[index] = stack[-1] - index
             stack.append(index)
+
         return result
 
 

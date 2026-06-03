@@ -2,11 +2,12 @@ class Solution:
     def isValid(self, s: str) -> bool:
         stack = []
         pattern_map = {']': '[', ')': '(', '}': '{'}
-        for char in s:
-            if (stack and char in pattern_map and pattern_map[char] == stack[-1]):
+
+        for ch in s:
+            if len(stack) > 0 and ch in pattern_map and pattern_map[ch] == stack[-1]:
                 stack.pop()
             else:
-                stack.append(char)
+                stack.append(ch)
         return not stack
 
 
