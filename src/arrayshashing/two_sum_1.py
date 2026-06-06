@@ -1,21 +1,19 @@
 from typing import List
 
 
-class TwoSum():
+class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        dictionary = {}
-        result = []
+        seen = {}
+        for idx, num in enumerate(nums):
+            complement = target - num
+            if complement in seen:
+                return [seen[complement], idx]
+            seen[num] = idx
 
-        for index, num in enumerate(nums):
-            if target - num in dictionary:
-                result.append(dictionary[target - num])
-                result.append(index)
-                break
-            else:
-                dictionary[num] = index
-        return result
+        return []
 
 
-def test_two_sum():
-    two_sum = TwoSum()
-    print(two_sum.twoSum([2, 7, 11, 15], 9))
+def test_1():
+    nums = [2, 7, 11, 15]
+    obj = Solution()
+    assert obj.twoSum(nums, 9) == [0, 1]

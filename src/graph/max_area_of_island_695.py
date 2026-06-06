@@ -1,37 +1,25 @@
 from typing import List
 
 
-def dfs(row_idx, col_idx, rows, cols, grid):
-    if row_idx < 0 or col_idx < 0 or col_idx >= cols or row_idx >= rows:
-        return 0
-
-    if grid[row_idx][col_idx] == 0:
-        return 0
-
-    grid[row_idx][col_idx] = 0
-
-    return (
-            1
-            + dfs(row_idx + 1, col_idx, rows, cols, grid)
-            + dfs(row_idx - 1, col_idx, rows, cols, grid)
-            + dfs(row_idx, col_idx + 1, rows, cols, grid)
-            + dfs(row_idx, col_idx - 1, rows, cols, grid)
-    )
-
-
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-
-        max_area = 0
-
-
         rows = len(grid)
         cols = len(grid[0])
+        max_area = 0
 
-        for row_idx, row in enumerate(grid):
-            for col_idx, col in enumerate(row):
-                max_area = max(dfs(row_idx, col_idx, rows, cols, grid), max_area)
+        def dfs(i, j) -> int:
+            if i < 0 or i >= rows or j < 0 or j >= cols or grid[i][j] == 0:
+                return 0
 
+            grid[i][j] = 0
+
+            return 1 + (dfs(i + 1, j) + dfs(i - 1, j) + dfs(i, j + 1) + dfs(i, j - 1))
+
+        for i in range(rows):
+            for j in range(cols):
+                if grid[i][j] == 1:
+                    # found island
+                    max_area = max(max_area, dfs(i, j))
         return max_area
 
 
