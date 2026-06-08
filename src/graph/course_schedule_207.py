@@ -4,27 +4,38 @@ from typing import List
 
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        graph = defaultdict(list)
+        completed_courses = 0
+
         indegree = [0] * numCourses
 
-        # Build the graph and indegree map
-        for dest, src in prerequisites:
-            graph[src].append(dest)
-            indegree[dest] += 1
+        graph = defaultdict(list)
 
-        # Start with courses having no prerequisites
-        queue = deque([i for i in range(numCourses) if indegree[i] == 0])
-        completed = 0
+        for pre in prerequisites:
+            from_course = pre[1]
+            to_course = pre[0]
+            indegree[to_course] += 1
+            graph[from_course].append(to_course)
+
+        queue = deque()
+
+        for course in range(numCourses):
+            if indegree[course] == 0:
+                queue.append(course)
 
         while queue:
-            course = queue.popleft()
-            completed += 1
+            popped = queue.popleft()
+            completed_courses += 1
 
-            for neighbor in graph[course]:
-                indegree[neighbor] -= 1
-                if indegree[neighbor] == 0:
-                    queue.append(neighbor)
+            for child in graph[popped]:
+                indegree[child] -= 1
+                if indegree[child] == 0:
+                    queue.append(child)
 
-        return completed == numCourses
+        return completed_courses == numCourses
 
 
+def test1():
+    prerequisites = [[1, 0], [0, 1]]
+    solution = Solution()
+    assert solution.canFinish(2, prerequisites) is False
+    assert solution.canFinish(2, [[1, 0]]) is True
