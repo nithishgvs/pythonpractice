@@ -1,5 +1,5 @@
 import heapq
-from typing import List, Optional
+from typing import Optional, List
 
 from src.linkedlist.list_node import ListNode
 
@@ -7,47 +7,96 @@ from src.linkedlist.list_node import ListNode
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
 
-        min_heap = []
-        index = 0
+        minheap: List[ListNode] = []
+        idx = 0
 
-        for inner_list in lists:
-            current = inner_list
+        for l in lists:
+            current = l
             while current:
-                heapq.heappush(min_heap, (current.val, index, current))
-                index += 1
+                heapq.heappush(minheap, (current.val, idx, current))
+                idx += 1
                 current = current.next
 
         dummy = ListNode(0)
         current = dummy
 
-        while min_heap:
-            val, _, curr_node = heapq.heappop(min_heap)
+        while minheap:
+            val, _, curr_node = heapq.heappop(minheap)
             current.next = curr_node
             current = current.next
 
         return dummy.next
 
 
-def array_to_list(arr):
-    """ Helper function to convert array to LinkedList """
-    if not arr:
-        return None
-    head = ListNode(arr[0])
-    current = head
-    for num in arr[1:]:
-        current.next = ListNode(num)
+def build_linked_list(values: List[int]) -> Optional[ListNode]:
+    dummy = ListNode()
+    current = dummy
+
+    for value in values:
+        current.next = ListNode(value)
         current = current.next
-    return head
+
+    return dummy.next
 
 
-def test_merge_k_sorted_lists():
-    merge_k = Solution()
+def linked_list_to_list(head: Optional[ListNode]) -> List[int]:
+    values = []
+    current = head
 
-    # Test Case 1: Merging three sorted lists
-    list1 = array_to_list([1, 4, 5])
-    list2 = array_to_list([1, 3, 4])
-    list3 = array_to_list([2, 6])
-    lists = [list1, list2, list3]
+    while current:
+        values.append(current.val)
+        current = current.next
 
-    merged_head = merge_k.mergeKLists(lists)
-    print(merged_head)
+    return values
+
+
+def test_merge_three_sorted_lists():
+    solution = Solution()
+    lists = [
+        build_linked_list([1, 4, 5]),
+        build_linked_list([1, 3, 4]),
+        build_linked_list([2, 6]),
+    ]
+
+    result = solution.mergeKLists(lists)
+
+    assert linked_list_to_list(result) == [1, 1, 2, 3, 4, 4, 5, 6]
+
+
+def test_merge_empty_input():
+    solution = Solution()
+
+    assert solution.mergeKLists([]) is None
+
+
+def test_merge_only_empty_lists():
+    solution = Solution()
+
+    assert solution.mergeKLists([None, None]) is None
+
+
+def test_merge_mixed_empty_and_non_empty_lists():
+    solution = Solution()
+    lists = [
+        None,
+        build_linked_list([0, 2]),
+        None,
+        build_linked_list([1, 3]),
+    ]
+
+    result = solution.mergeKLists(lists)
+
+    assert linked_list_to_list(result) == [0, 1, 2, 3]
+
+
+def test_merge_lists_with_negative_values_and_duplicates():
+    solution = Solution()
+    lists = [
+        build_linked_list([-10, -3, 0]),
+        build_linked_list([-5, -3, 2]),
+        build_linked_list([-5, 4]),
+    ]
+
+    result = solution.mergeKLists(lists)
+
+    assert linked_list_to_list(result) == [-10, -5, -5, -3, -3, 0, 2, 4]
