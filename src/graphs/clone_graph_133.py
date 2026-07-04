@@ -40,7 +40,7 @@ def test_graph():
 
     node4 = Node(4)
 
-    # Build graph:
+    # Build graphs:
 
     # adjList = [[2,4],[1,3],[2,4],[1,3]]
 
