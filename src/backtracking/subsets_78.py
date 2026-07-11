@@ -2,24 +2,23 @@ from typing import List
 
 
 class Solution:
-    # Time:  O(n * 2^n) - there are 2^n subsets, and copying each into the
-    #        result takes up to O(n).
-    # Space: O(n) for the recursion stack and curr_list (excluding the output).
-    #        Including the output it is O(n * 2^n).
     def subsets(self, nums: List[int]) -> List[List[int]]:
         result: List[List[int]] = []
+        subset: List[int] = []
 
-        def dfs(index: int, curr_list: List[int]) -> None:
-            if index >= len(nums):
-                result.append(curr_list.copy())
+        def backtracking(start):
+            if start == len(nums):
+                result.append(subset.copy())
                 return
+            # include the number
+            subset.append(nums[start])
+            backtracking(start + 1)
+            # dont include the number
+            subset.pop()
+            backtracking(start + 1)
 
-            curr_list.append(nums[index])
-            dfs(index + 1, curr_list)
-            curr_list.pop()
-            dfs(index + 1, curr_list)
+        backtracking(0)
 
-        dfs(0, [])
         return result
 
 
