@@ -38,4 +38,4 @@ class Solution:
 
 def test():
     s = Solution()
-    print(s.longestCommonSubsequence("abcde", "ace"))
+    print(s.longestCommonSubsequence("abcd", "abcx"))
