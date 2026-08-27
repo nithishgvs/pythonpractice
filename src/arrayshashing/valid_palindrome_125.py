@@ -1,6 +1,3 @@
-import re
-
-
 class ValidPalindrome:
     def isPalindrome(self, s: str) -> bool:
         start, end = 0, len(s) - 1
@@ -20,7 +17,7 @@ class ValidPalindrome:
             start += 1
             end -= 1
 
-        return
+        return True
 
 
 def test_palindrome():

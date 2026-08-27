@@ -26,6 +26,7 @@ class Solution:
                 if breaks > survives:
                     high = floor - 1
                 else:
+                    # since we need more temp value in worst case, so need to go above
                     low = floor + 1
 
             memo[(e, n)] = moves
