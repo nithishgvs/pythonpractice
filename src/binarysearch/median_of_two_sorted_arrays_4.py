@@ -41,4 +41,4 @@ class Solution:
 
 def test1():
     sol = Solution()
-    print(sol.findMedianSortedArrays([1, 2, 3, 5], [5, 6]))
+    print(sol.findMedianSortedArrays([1, 2, 3, 4, 5], [6, 7]))
