@@ -26,6 +26,33 @@ class Solution:
         return False
 
 
-def test():
+def run_tests():
     s = Solution()
-    print(s.checkInclusion("ab", "eidboaoo"))
+    cases = [
+        # (s1, s2, expected)
+        ("ab", "eidbaooo", True),   # LeetCode example 1
+        ("ab", "eidboaoo", False),  # LeetCode example 2
+        ("ab", "ab", True),         # permutation at start
+        ("ab", "oooba", True),      # permutation at end
+        ("abc", "ab", False),       # s1 longer than s2
+        ("a", "a", True),
+        ("a", "b", False),
+        ("aa", "baa", True),        # repeated characters
+        ("aab", "aaa", False),
+        ("abc", "abc", True),       # identical strings
+        ("ab", "aab", True),        # overlapping windows
+        ("adc", "dcda", True),
+    ]
+    passed = 0
+    for s1, s2, expected in cases:
+        result = s.checkInclusion(s1, s2)
+        if result == expected:
+            passed += 1
+        else:
+            print(f"FAIL: checkInclusion({s1!r}, {s2!r}) = {result}, expected {expected}")
+    print(f"{passed}/{len(cases)} tests passed")
+    assert passed == len(cases), "Some tests failed"
+
+
+if __name__ == "__main__":
+    run_tests()
